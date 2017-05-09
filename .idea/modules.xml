@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/angular-on-wheels-services.iml" filepath="$PROJECT_DIR$/.idea/modules/angular-on-wheels-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/angular-on-wheels-services_main.iml" filepath="$PROJECT_DIR$/.idea/modules/angular-on-wheels-services_main.iml" group="angular-on-wheels-services" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/angular-on-wheels-services_test.iml" filepath="$PROJECT_DIR$/.idea/modules/angular-on-wheels-services_test.iml" group="angular-on-wheels-services" />
+    </modules>
+  </component>
+</project>
