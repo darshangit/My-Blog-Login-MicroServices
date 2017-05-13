@@ -1,0 +1,6 @@
+spring:
+       datasource:
+                  url: jdbc:postgresql:aow
+                  username: postgres
+                  password: dash
+       jpa:generate-ddl: true
