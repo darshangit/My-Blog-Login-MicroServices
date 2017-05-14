@@ -1,24 +1,19 @@
 package com.angular.services.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Darsh on 5/13/2017.
  */
 @Entity
 @Table(name="USER_DETAILS")
-public class UserEntity {
+public class UserEntity implements Serializable{
 
     private Integer UUID;
     private String name;
     private String email;
     private String password;
-
-    public UserEntity(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
