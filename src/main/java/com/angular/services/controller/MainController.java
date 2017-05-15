@@ -2,6 +2,8 @@ package com.angular.services.controller;
 
 import com.angular.services.dao.UserDao;
 import com.angular.services.entity.UserEntity;
+import com.angular.services.response.UserServiceResponse;
+import com.angular.services.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,16 +12,19 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class MainController {
-
     @Autowired
     UserDao userDao;
 
-    @RequestMapping(value="/api/save",method = RequestMethod.POST,consumes = "application/json")
-    @ResponseBody
-    public String addUser(@RequestBody UserEntity userEntity){
-        System.out.println("adding"+userEntity);
-        userDao.save(userEntity);
-        return "Done";
-    }
+    @Autowired
+    UserService userService;
 
+    @Autowired
+    UserServiceResponse userServiceResponse;
+
+    @RequestMapping(value="/api/save",method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
+    public UserServiceResponse addUser(@RequestBody UserEntity userEntity){
+        String status = userService.validateUserAndAdd(userEntity);
+        userServiceResponse.setStatus(status);
+        return userServiceResponse;
+    }
 }
