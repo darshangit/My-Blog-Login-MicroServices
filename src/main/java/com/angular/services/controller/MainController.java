@@ -2,6 +2,7 @@ package com.angular.services.controller;
 
 import com.angular.services.dao.UserDao;
 import com.angular.services.entity.UserEntity;
+import com.angular.services.response.LoginResponse;
 import com.angular.services.response.UserServiceResponse;
 import com.angular.services.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,10 @@ public class MainController {
         String status = userService.validateUserAndAdd(userEntity);
         userServiceResponse.setStatus(status);
         return userServiceResponse;
+    }
+
+    @RequestMapping(value="/api/login",method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
+    public LoginResponse loginUser(@RequestBody UserEntity userEntity){
+        return userService.validateLogin(userEntity);
     }
 }
