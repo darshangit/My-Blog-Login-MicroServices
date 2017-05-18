@@ -40,8 +40,8 @@ public class UserService {
             status = "Logged In Successfully";
 
             loginResponse.setStatus(status);
-            loginResponse.setUser_email(entity.getEmail());
-            loginResponse.setUser_name(entity.getName());
+            loginResponse.setUserEmail(entity.getEmail());
+            loginResponse.setUserName(entity.getName());
             return loginResponse;
         }
         loginResponse.setStatus(status);

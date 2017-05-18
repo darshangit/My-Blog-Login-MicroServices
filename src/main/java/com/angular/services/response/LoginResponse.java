@@ -11,8 +11,8 @@ import java.io.Serializable;
 public class LoginResponse implements Serializable{
 
     private String status;
-    private String user_name;
-    private String user_email;
+    private String userName;
+    private String userEmail;
 
     public String getStatus() {
         return status;
@@ -22,19 +22,19 @@ public class LoginResponse implements Serializable{
         this.status = status;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUser_email() {
-        return user_email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser_email(String user_email) {
-        this.user_email = user_email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }
