@@ -33,4 +33,14 @@ public class MainController {
     public LoginResponse loginUser(@RequestBody UserEntity userEntity){
         return userService.validateLogin(userEntity);
     }
+
+    @RequestMapping(value="/api/updateuser",method= RequestMethod.POST,consumes = "application/json",produces = "application/json")
+    public UserServiceResponse updateUser(@RequestBody UserEntity userEntity) {
+        String status = userService.updateUserDetails(userEntity);
+        userServiceResponse.setStatus(status);
+        return userServiceResponse;
+
+    }
+
+
 }

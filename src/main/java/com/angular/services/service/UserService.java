@@ -47,4 +47,12 @@ public class UserService {
         loginResponse.setStatus(status);
         return loginResponse;
     }
+
+    public String updateUserDetails(UserEntity userEntity) {
+        UserEntity entity = userDao.findByEmail(userEntity.getEmail());
+        entity.setName(userEntity.getName());
+        userDao.save(entity);
+
+        return "Name Updated Successfully";
+    }
 }
