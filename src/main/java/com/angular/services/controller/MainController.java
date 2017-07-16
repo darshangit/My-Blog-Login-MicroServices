@@ -1,8 +1,8 @@
 package com.angular.services.controller;
 
 import com.angular.services.dao.UserDao;
-import com.angular.services.entity.UserEntity;
-import com.angular.services.response.LoginResponse;
+import com.angular.services.entity.UserActionEntity;
+import com.angular.services.response.UserProfileResponse;
 import com.angular.services.response.UserServiceResponse;
 import com.angular.services.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +22,24 @@ public class MainController {
     @Autowired
     UserServiceResponse userServiceResponse;
 
-    @RequestMapping(value="/api/save",method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
-    public UserServiceResponse addUser(@RequestBody UserEntity userEntity){
-        String status = userService.validateUserAndAdd(userEntity);
-        userServiceResponse.setStatus(status);
-        return userServiceResponse;
+    @RequestMapping(name = "/api/initialLogin")
+    public void initialLogin(@RequestBody String userIdToken){
+        userService.initialLogin(userIdToken);
     }
 
-    @RequestMapping(value="/api/login",method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
-    public LoginResponse loginUser(@RequestBody UserEntity userEntity){
-        return userService.validateLogin(userEntity);
+    @RequestMapping(name="/api/userProfile")
+    public UserProfileResponse userProfile(@RequestBody String userIdToken){
+        return userService.userProfile(userIdToken);
     }
 
-    @RequestMapping(value="/api/updateuser",method= RequestMethod.POST,consumes = "application/json",produces = "application/json")
-    public UserServiceResponse updateUser(@RequestBody UserEntity userEntity) {
-        String status = userService.updateUserDetails(userEntity);
-        userServiceResponse.setStatus(status);
-        return userServiceResponse;
+    @RequestMapping(name = "/api/favourite")
+    public void addFavourite(@RequestBody UserActionEntity userActionEntity){
+        userService.addFavourite(userActionEntity);
+
+    }
+
+    @RequestMapping(name = "/api/subListingViews")
+    public void sublistingViewed(@RequestBody UserActionEntity userActionEntity){
+        userService.sublistingViewed(userActionEntity);
     }
 }

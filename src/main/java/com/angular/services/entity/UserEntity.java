@@ -7,49 +7,30 @@ import java.io.Serializable;
  * Created by Darsh on 5/13/2017.
  */
 @Entity
-@Table(name="USER_DETAILS")
+@Table(name="USER_INFO")
 public class UserEntity implements Serializable{
 
-    private Integer UUID;
-    private String name;
-    private String email;
-    private String password;
+    private String userId;
+    private Integer loginCount;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="USER_UUID")
-    public Integer getUUID() {
-        return UUID;
+    @Column(name="USER_ID")
+    public String getUserId() {
+        return userId;
     }
 
-    @Column(name="USER_NAME")
-    public String getName() {
-        return name;
+    @Column(name="LOGIN_COUNT")
+    public Integer getLoginCount() {
+        return loginCount;
     }
 
-    @Column(name="USER_EMAIL")
-    public String getEmail() {
-        return email;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    @Column(name="USER_PASSWORD")
-    public String getPassword() {
-        return password;
+    public void setLoginCount(Integer loginCount) {
+        this.loginCount = loginCount;
     }
 
-    public void setUUID(Integer UUID) {
-        this.UUID = UUID;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

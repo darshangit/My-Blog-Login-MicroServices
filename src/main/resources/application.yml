@@ -3,4 +3,6 @@ spring:
                   url: jdbc:postgresql:aow
                   username: postgres
                   password: dash
-       jpa:generate-ddl: true
+       jpa:
+          generate-ddl: true
+#          create: true
