@@ -10,11 +10,13 @@ import java.util.List;
 public class UserProfileResponse {
 
     private Integer totalSiteVisits;
-    private Integer totalTopicsPresent;
-    private Integer totalTopicsViewed;
-    private Integer learningLevel;
+    private Long totalTopicsPresent;
+    private Long totalTopicsViewed;
+    private Long learningLevel;
 
-    private List<UserActionEntity> recentlyViewedAndFavourites;
+    private List<UserActionEntity> recentlyViewed;
+    private List<UserActionEntity> favourites;
+
 
     public Integer getTotalSiteVisits() {
         return totalSiteVisits;
@@ -24,35 +26,43 @@ public class UserProfileResponse {
         this.totalSiteVisits = totalSiteVisits;
     }
 
-    public Integer getTotalTopicsPresent() {
+    public Long getTotalTopicsPresent() {
         return totalTopicsPresent;
     }
 
-    public void setTotalTopicsPresent(Integer totalTopicsPresent) {
+    public void setTotalTopicsPresent(Long totalTopicsPresent) {
         this.totalTopicsPresent = totalTopicsPresent;
     }
 
-    public Integer getTotalTopicsViewed() {
+    public Long getTotalTopicsViewed() {
         return totalTopicsViewed;
     }
 
-    public void setTotalTopicsViewed(Integer totalTopicsViewed) {
+    public void setTotalTopicsViewed(Long totalTopicsViewed) {
         this.totalTopicsViewed = totalTopicsViewed;
     }
 
-    public Integer getLearningLevel() {
+    public Long getLearningLevel() {
         return learningLevel;
     }
 
-    public void setLearningLevel(Integer learningLevel) {
+    public void setLearningLevel(Long learningLevel) {
         this.learningLevel = learningLevel;
     }
 
-    public List<UserActionEntity> getRecentlyViewedAndFavourites() {
-        return recentlyViewedAndFavourites;
+    public List<UserActionEntity> getRecentlyViewed() {
+        return recentlyViewed;
     }
 
-    public void setRecentlyViewedAndFavourites(List<UserActionEntity> recentlyViewedAndFavourites) {
-        this.recentlyViewedAndFavourites = recentlyViewedAndFavourites;
+    public void setRecentlyViewed(List<UserActionEntity> recentlyViewed) {
+        this.recentlyViewed = recentlyViewed;
+    }
+
+    public List<UserActionEntity> getFavourites() {
+        return favourites;
+    }
+
+    public void setFavourites(List<UserActionEntity> favourites) {
+        this.favourites = favourites;
     }
 }
