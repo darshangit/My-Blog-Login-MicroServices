@@ -14,7 +14,6 @@ public class UserEntity implements Serializable{
     private Integer loginCount;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="USER_ID")
     public String getUserId() {
         return userId;

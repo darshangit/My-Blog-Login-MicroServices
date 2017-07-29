@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.angular.services.constants.MainConstants.CLIENT_ID;
+import static com.angular.services.constants.MainConstants.CLIENT_ID_2;
 import static com.angular.services.constants.MainConstants.YES;
 
 /**
@@ -43,8 +43,7 @@ public class UserService {
     public void initialLogin(String userIdToken){
 
         try {
-            String userId = getUserId(userIdToken);
-            UserEntity alreadyExistingUser = userDao.findOne(userId);
+            UserEntity alreadyExistingUser = userDao.findOne(userIdToken);
 
             if (alreadyExistingUser != null) {
                 alreadyExistingUser.setLoginCount(alreadyExistingUser.getLoginCount() + 1);
@@ -52,11 +51,11 @@ public class UserService {
             } else {
                 UserEntity userEntity = new UserEntity();
                 userEntity.setLoginCount(1);
-                userEntity.setUserId(userId);
+                userEntity.setUserId(userIdToken);
                 userDao.save(userEntity);
             }
         }
-        catch (GeneralSecurityException | IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -64,13 +63,12 @@ public class UserService {
     public UserProfileResponse userProfile(String userIdToken){
         UserProfileResponse userProfileResponse = new UserProfileResponse();
         try {
-            String userId = getUserId(userIdToken);
-            UserEntity userEntity = userDao.findOne(userId);
+            UserEntity userEntity = userDao.findOne(userIdToken);
 
             if (userEntity != null) {
                 userProfileResponse.setTotalSiteVisits(userEntity.getLoginCount());
                 userProfileResponse.setTotalTopicsPresent(subListingDao.count());
-                List<UserActionEntity> userActionEntityList = userActionDao.findByUserIdOrderByCreateTimestampAsc(userId);
+                List<UserActionEntity> userActionEntityList = userActionDao.findByUserIdOrderByCreateTimestampAsc(userIdToken);
                 if(!CollectionUtils.isEmpty(userActionEntityList)){
                     userProfileResponse.setTotalTopicsViewed(userActionEntityList.stream().count());
                     userProfileResponse.setRecentlyViewed(userActionEntityList.stream().limit(5).collect(Collectors.toList()));
@@ -78,7 +76,7 @@ public class UserService {
                     userProfileResponse.setLearningLevel(calculateLearningPercentage(userProfileResponse.getTotalTopicsPresent(),userProfileResponse.getTotalTopicsViewed()));
                 }
             }
-        } catch (GeneralSecurityException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return userProfileResponse;
@@ -116,7 +114,7 @@ public class UserService {
 
     public String getUserId(String incomingUserId) throws GeneralSecurityException, IOException {
         String userId = null;
-        GoogleIdTokenVerifier googleIdTokenVerifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JACKSON_FACTORY).setAudience(Collections.singletonList(CLIENT_ID)).build();
+        GoogleIdTokenVerifier googleIdTokenVerifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JACKSON_FACTORY).setIssuer("https://accounts.google.com").setAudience(Collections.singletonList(CLIENT_ID_2)).build();
         GoogleIdToken googleIdToken = googleIdTokenVerifier.verify(incomingUserId);
         if (googleIdToken != null) {
             GoogleIdToken.Payload payload = googleIdToken.getPayload();
