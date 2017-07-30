@@ -15,7 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.GeneralSecurityException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,32 +88,29 @@ public class UserService {
 
     public void addFavourite(UserActionEntity userActionEntity){
         try {
-            String userId = getUserId(userActionEntity.getUserId());
-            UserActionEntity dbUserActionEntity = userActionDao.findByUserIdEqualsAndListingNameEquals(userId,userActionEntity.getListingName());
+            UserActionEntity dbUserActionEntity = userActionDao.findByUserIdEqualsAndListingNameEquals(userActionEntity.getUserId(),userActionEntity.getListingName());
             dbUserActionEntity.setFavourite(YES);
             userActionDao.save(dbUserActionEntity);
-        } catch (GeneralSecurityException |IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void sublistingViewed(UserActionEntity userActionEntity){
         try {
-            String userId = getUserId(userActionEntity.getUserId());
-            UserActionEntity dbUserActionEntity = userActionDao.findByUserIdEqualsAndListingNameEquals(userId,userActionEntity.getListingName());
+            UserActionEntity dbUserActionEntity = userActionDao.findByUserIdEqualsAndListingNameEquals(userActionEntity.getUserId(),userActionEntity.getListingName());
             if(dbUserActionEntity == null){
-                userActionEntity.setUserId(userId);
+                userActionEntity.setUserId(userActionEntity.getUserId());
+                userActionEntity.setCreateTimestamp(new Timestamp(Instant.now().toEpochMilli()));
                 userActionDao.save(userActionEntity);
             }
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private Long calculateLearningPercentage(Long totalTopicsPresent, Long totalTopicsViewed) {
-        return (totalTopicsViewed/totalTopicsPresent) * 100;
+        return (new BigDecimal(totalTopicsViewed).divide(new BigDecimal(totalTopicsPresent),2, RoundingMode.HALF_UP).multiply(new BigDecimal(100))).longValue();
     }
 
     public String getUserId(String incomingUserId) throws GeneralSecurityException, IOException {
