@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.angular.services.constants.MainConstants.CLIENT_ID_2;
+import static com.angular.services.constants.MainConstants.NO;
 import static com.angular.services.constants.MainConstants.YES;
 
 /**
@@ -90,6 +91,18 @@ public class UserService {
         try {
             UserActionEntity dbUserActionEntity = userActionDao.findByUserIdEqualsAndListingNameEquals(userActionEntity.getUserId(),userActionEntity.getListingName());
             dbUserActionEntity.setFavourite(YES);
+            userActionEntity.setCreateTimestamp(new Timestamp(Instant.now().toEpochMilli()));
+            userActionDao.save(dbUserActionEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeFavourite(UserActionEntity userActionEntity){
+        try {
+            UserActionEntity dbUserActionEntity = userActionDao.findByUserIdEqualsAndListingNameEquals(userActionEntity.getUserId(),userActionEntity.getListingName());
+            dbUserActionEntity.setFavourite(NO);
+            userActionEntity.setCreateTimestamp(new Timestamp(Instant.now().toEpochMilli()));
             userActionDao.save(dbUserActionEntity);
         } catch (Exception e) {
             e.printStackTrace();

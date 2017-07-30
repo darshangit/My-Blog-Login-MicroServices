@@ -9,4 +9,5 @@ public class MainConstants {
     public static String CLIENT_ID = "713799670825-pgj3ls7vcvn30c6qgvfijff9vblnql43.apps.googleusercontent.com";
     public static String CLIENT_ID_2 = "713799670825-jjnjtnrg8kd6otg6dtbm3no1gbtkd0a8.apps.googleusercontent.com";
     public static String YES = "YES";
+    public static String NO = "NO";
 }
