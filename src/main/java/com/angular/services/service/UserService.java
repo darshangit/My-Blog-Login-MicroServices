@@ -109,6 +109,18 @@ public class UserService {
         }
     }
 
+    public boolean getFavourite(UserActionEntity userActionEntity){
+        try {
+            UserActionEntity dbUserActionEntity = userActionDao.findByUserIdEqualsAndListingNameEquals(userActionEntity.getUserId(),userActionEntity.getListingName());
+            if(dbUserActionEntity != null){
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void sublistingViewed(UserActionEntity userActionEntity){
         try {
             UserActionEntity dbUserActionEntity = userActionDao.findByUserIdEqualsAndListingNameEquals(userActionEntity.getUserId(),userActionEntity.getListingName());

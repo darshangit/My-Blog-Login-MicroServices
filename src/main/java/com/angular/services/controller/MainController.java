@@ -32,7 +32,12 @@ public class MainController {
 
     @PostMapping(value = "/api/removeFavourite",consumes = "application/json")
     public void removeFavourite(@RequestBody UserActionEntity userActionEntity){
-        userService.addFavourite(userActionEntity);
+        userService.removeFavourite(userActionEntity);
+    }
+
+    @PostMapping(value = "/api/getFavourite",consumes = "application/json")
+    public Boolean getFavourite(@RequestBody UserActionEntity userActionEntity){
+       return userService.getFavourite(userActionEntity);
     }
 
     @PostMapping(value = "/api/subListingViews",consumes = "application/json")
