@@ -112,7 +112,7 @@ public class UserService {
     public boolean getFavourite(UserActionEntity userActionEntity){
         try {
             UserActionEntity dbUserActionEntity = userActionDao.findByUserIdEqualsAndListingNameEquals(userActionEntity.getUserId(),userActionEntity.getListingName());
-            if(dbUserActionEntity != null){
+            if(dbUserActionEntity != null && YES.equals(dbUserActionEntity.getFavourite())){
                 return true;
             }
         } catch (Exception e) {

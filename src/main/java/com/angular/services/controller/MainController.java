@@ -36,7 +36,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/api/getFavourite",consumes = "application/json")
-    public Boolean getFavourite(@RequestBody UserActionEntity userActionEntity){
+    public boolean getFavourite(@RequestBody UserActionEntity userActionEntity){
        return userService.getFavourite(userActionEntity);
     }
 
