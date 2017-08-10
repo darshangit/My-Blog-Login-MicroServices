@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by Darsh on 5/13/2017.
  */
 @RestController
+@CrossOrigin("*")
 public class MainController {
 
     @Autowired
