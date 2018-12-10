@@ -74,19 +74,22 @@ public class UserService {
         BabuaEntity babuaEntity = babuaDao.findOne("Babua");
 
         if(babuaEntity == null){
-            BabuaEntity  entity = new BabuaEntity();
-            entity.setLoginCount(1);
-            entity.setUserName("Babua");
-            entity.setLoadOrNot("Yes");
-            babuaDao.save(entity);
+            babuaEntity = new BabuaEntity();
+            babuaEntity.setLoginCount(1);
+            babuaEntity.setUserName("Babua");
+            babuaEntity.setLoadOrNot("Yes");
         } else {
             if ("Yes".equals(burnBridge)) {
                 babuaEntity.setLoadOrNot("No");
-            } else {
+            } else if("change".equals(burnBridge)){
+                babuaEntity.setLoadOrNot("Yes");
+                babuaEntity.setLoginCount(0);
+            }else{
                 babuaEntity.setLoginCount(babuaEntity.getLoginCount() + 1);
             }
-            babuaDao.save(babuaEntity);
         }
+        babuaDao.save(babuaEntity);
+
         return babuaEntity;
     }
 
