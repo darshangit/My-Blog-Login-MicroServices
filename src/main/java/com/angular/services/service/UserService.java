@@ -1,8 +1,10 @@
 package com.angular.services.service;
 
+import com.angular.services.dao.BabuaDao;
 import com.angular.services.dao.SubListingDao;
 import com.angular.services.dao.UserActionDao;
 import com.angular.services.dao.UserDao;
+import com.angular.services.entity.BabuaEntity;
 import com.angular.services.entity.UserActionEntity;
 import com.angular.services.entity.UserEntity;
 import com.angular.services.response.UserProfileResponse;
@@ -43,6 +45,9 @@ public class UserService {
     @Autowired
     private SubListingDao subListingDao;
 
+    @Autowired
+    private BabuaDao babuaDao;
+
     private static final JacksonFactory JACKSON_FACTORY = new JacksonFactory();
 
     public void initialLogin(String userIdToken){
@@ -63,6 +68,19 @@ public class UserService {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public BabuaEntity updateAndDeleteBride(String response){
+        BabuaEntity babuaEntity = babuaDao.findOne("Babua");
+
+        if("Yes".equals(response)){
+            babuaEntity.setLoadOrNot("Yes");
+        }else {
+            babuaEntity.setLoginCount(babuaEntity.getLoginCount()+1);
+        }
+        babuaDao.save(babuaEntity);
+
+        return babuaEntity;
     }
 
     public UserProfileResponse userProfile(String userIdToken){

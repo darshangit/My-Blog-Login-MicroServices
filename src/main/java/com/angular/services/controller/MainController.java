@@ -1,5 +1,6 @@
 package com.angular.services.controller;
 
+import com.angular.services.entity.BabuaEntity;
 import com.angular.services.entity.UserActionEntity;
 import com.angular.services.response.UserProfileResponse;
 import com.angular.services.service.UserService;
@@ -15,6 +16,12 @@ public class MainController {
 
     @Autowired
     UserService userService;
+
+
+    @GetMapping(value = "/api/userCount/{burnBride}")
+    public BabuaEntity updateAndDeleteBride(@PathVariable String burnBride){
+        return userService.updateAndDeleteBride(burnBride);
+    }
 
     @PostMapping(value="/api/initialLogin",consumes = "application/json")
     public void initialLogin(@RequestBody String userIdToken){
