@@ -70,16 +70,23 @@ public class UserService {
         }
     }
 
-    public BabuaEntity updateAndDeleteBride(String response){
+    public BabuaEntity updateAndDeleteBride(String burnBridge){
         BabuaEntity babuaEntity = babuaDao.findOne("Babua");
 
-        if("Yes".equals(response)){
-            babuaEntity.setLoadOrNot("Yes");
-        }else {
-            babuaEntity.setLoginCount(babuaEntity.getLoginCount()+1);
+        if(babuaEntity == null){
+            BabuaEntity  entity = new BabuaEntity();
+            entity.setLoginCount(1);
+            entity.setUserName("Babua");
+            entity.setLoadOrNot("Yes");
+            babuaDao.save(entity);
+        } else {
+            if ("Yes".equals(burnBridge)) {
+                babuaEntity.setLoadOrNot("No");
+            } else {
+                babuaEntity.setLoginCount(babuaEntity.getLoginCount() + 1);
+            }
+            babuaDao.save(babuaEntity);
         }
-        babuaDao.save(babuaEntity);
-
         return babuaEntity;
     }
 
